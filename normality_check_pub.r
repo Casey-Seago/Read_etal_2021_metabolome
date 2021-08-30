@@ -20,7 +20,7 @@ for(i in 2:ncol(data)) {
 }
 dev.off()
 
-# doing a test for normality that will give us a shapiro wilkes statistic and pvalue
+# doing a test for normality that will give us a shapiro wilk statistic and pvalue
 for(i in 2:ncol(data)) {      
     sink(file = "resid_normality_check.txt", append = TRUE, type = c("output"), split = TRUE)
     model = lm(g2_measure ~ data[,i], data = data)

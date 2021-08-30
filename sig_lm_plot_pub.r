@@ -32,7 +32,7 @@ fn_rem = function(x) sub("X", "", x)
 fn_acid = function(x) sub("-acid", " acid", x)
 
 # reordering the dataframe here so that the panel labels get placed on the correct plot
-ordered_fdr = order(fdr_sig$fdrtest,fdr_sig$metabolite)
+ordered_fdr = order(fdr_sig$fdrtest,fdr_sig$metabolite) # ordering by significance and, in the event fdr is the same, by alphabetical order
 metab_df_order = ordered_fdr + 1 # did plus one bc the metab dataframe has the first column as g2_measure
 metab_df_order_string = paste(metab_df_order, collapse = ",")
 sig_metab = sig_metab[,c(1,9,10,11,6,8,3,18,12,15,2,16,19,4,13,7,14,17,5)] # ordering the df based on significance and alphabetical order
@@ -60,7 +60,6 @@ for (i in 2:ncol(sig_metab)) {
         metab = fn_hyph(colnames(sig_metab)[i])
         metab = fn_acid(metab)
     }
-    # fig_text = paste(text_fdr, metab , sep = "\n") separating the fig_text into two separate annotations
     plot_name = paste(colnames(sig_metab[i]), "plot", sep ="_")
     plot_list = append(plot_list, plot_name) # generating a list of plot names to use later during grid.arrange()
     panel = LETTERS[i-1] # using LETTERS function in r to get the panel labelling for the figure. Have to subtract one bc you want to start with A, but your column index is 2.
@@ -86,13 +85,8 @@ for (i in 2:ncol(sig_metab)) {
         axis.text.x = element_text(size=22)))
 }
 
-#creating a comma separated list of plot names for pasting into the grid.arrange function where the plots are sorted in order of level of significance (fdr value)
-ordered_fdr = order(fdr_sig$fdrtest,fdr_sig$metabolite)
-ordered_plot_list = list()
-for (value in ordered_fdr) {
-    ordered_plot_list = append(ordered_plot_list,plot_list[value])
-}
-ordered_plot_string = paste(ordered_plot_list, collapse = ",")
+# creating a comma separated string for use in grid.arrange()
+plot_string = paste(plot_list, collapse = ",")
 
 # arranging the plots into a grid of figures and outputting as a jpeg
 jpeg(filename = 'metabolite_lm_plots.jpeg', width = 1800, height = 2600)

@@ -42,6 +42,8 @@ met_data = sqldf('select c.cow_id as id, f.g2_measure, f.foll_class, c.age, c.bc
 
 # converting weight in pounds to weight in kg
 met_data$wt2 = met_data$wt2/2.20462
+
+# converting days to hours
 met_data$pg_to_g2 = met_data$pg_to_g2*24
 
 

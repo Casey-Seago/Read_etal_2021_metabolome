@@ -30,7 +30,7 @@ tometab <- tometab[-1, ] # deleting the first row bc it is the g2_measure
 
 # ordering the metabolites in order of fdr value and then by alphabetical order of metabolite (some have the same fdr value and it randomly assigns orders to them. Want to keep it consistent between figures)
 fdr$metabolite = as.character(fdr$metabolite)
-ordered_fdr = order(fdr$fdrtest, fdr$metabolite) # decreasing = true bc of how I want them to be ordered on the final heatmap
+ordered_fdr = order(fdr$fdrtest, fdr$metabolite) 
 
 # creating a column separated string that I can use to reorder the rows
 ordered_fdr_string = paste(ordered_fdr, collapse = ",")
